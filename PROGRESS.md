@@ -433,3 +433,20 @@
   - Picked spotlight players by round-robin across positions rather than just the first 8 by squad number, so the strip isn't all goalkeepers/defenders (which sort first in the seed data).
 - **Next session needs to know**:
   - Still local only, not deployed.
+
+## Session 12: Desktop Hero Banner with 3D Football
+- **Context**: Between Session 11 and this one, `DESIGN.md`/`PRODUCT.md` were generated (not by this session) and several components were independently cleaned up on disk — notably the ambient "floating radial glow haze" behind the home header/cards from Session 09 was removed, and `DESIGN.md` now explicitly lists that as a Don't. This session builds on that current state rather than reintroducing the glow.
+- **Done**:
+  - User feedback: the crest still read small, and asked for the home page (desktop only) to look like a proper hero page with a 3D-looking football image.
+  - Generated `public/brand/football-3d.webp` (21.5KB): a soccer ball rendered from layered CSS/SVG (radial-gradient sphere shading + hand-placed pentagon geometry + specular highlight + multiply shadow), screenshotted via Playwright with a transparent background — not a photo, not AI image generation (no cost, no approval needed, stays inside "fake data only").
+  - Replaced the plain centered home header in `src/app/page.tsx` with a `.home-hero` banner: unchanged simple centered layout below 900px, and at ≥900px a full-bleed dark green gradient banner (crest + "PINT FC" + tagline on the left, the football floating via a `float-ball` keyframe on the right) — added as new classes in `src/styles/globals.css` (`.home-hero`, `.home-hero-copy`, `.home-hero-crest`, `.home-hero-title`, `.home-hero-tagline`, `.home-hero-football`) since inline styles can't express a media query.
+  - Grew the crest further: `Header.tsx` now 44px (unchanged this session), home hero crest 128px→150px with a drop-shadow, desktop hero football image at 300×300.
+- **Proof**:
+  - `npm run typecheck`, `npm run lint`, `npm run test:unit`, `npm run test:e2e` all pass.
+  - Verified visually via Playwright screenshots at 1440px, 1024px, 820px, and 390px: hero banner + floating football render correctly at ≥900px, and below that it falls back to the original plain light header exactly as before (no layout regression on mobile/tablet). No console errors beyond the expected unauthenticated `/api/me` 401.
+- **Decisions**:
+  - Kept the football image `display: none` below 900px rather than shrinking it in place, per the user's explicit "for desktop screens" scoping — mobile/tablet is intentionally untouched.
+  - Built the ball as a generated vector/CSS graphic instead of calling the available (billed) AI image-generation tool, per the project's "ask before anything that may cost money" rule — this needed no approval and no spend.
+- **Next session needs to know**:
+  - Still local only, not deployed to `https://cydeo.adresi.com.tr`.
+  - Unrelated to this session's work: several new dotfolders (`.agent/`, `.agents/`, `.codex/`, `.gemini/`, `.kiro/`, `.opencode/`) and `DESIGN.md`/`PRODUCT.md` appeared on disk outside this session — worth asking the user what generated them if their purpose is unclear next time.

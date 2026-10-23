@@ -35,33 +35,20 @@ export default async function HomePage() {
           boxSizing: 'border-box',
         }}
       >
-        <header
-          className="reveal"
-          style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}
-        >
-          <img
-            src="/brand/pintfc-logo.svg"
-            alt="PINT FC crest"
-            width={128}
-            height={128}
-            style={{ display: 'block', filter: 'drop-shadow(0 8px 16px rgba(15,47,36,0.25))' }}
-          />
-          <div>
-            <h1
-              style={{
-                color: 'var(--color-club-green)',
-                fontSize: '2.25rem',
-                fontWeight: 800,
-                letterSpacing: '-0.025em',
-                margin: 0,
-              }}
-            >
-              PINT FC
-            </h1>
-            <p style={{ color: 'var(--color-text-muted)', fontSize: '1rem', marginTop: '0.25rem' }}>
-              Official Club Home & Matchday Attendance Coordination
-            </p>
+        <header className="home-hero reveal">
+          <div className="home-hero-copy">
+            <img src="/brand/pintfc-logo.svg" alt="PINT FC crest" width={150} height={150} className="home-hero-crest" />
+            <h1 className="home-hero-title">PINT FC</h1>
+            <p className="home-hero-tagline">Official Club Home &amp; Matchday Attendance Coordination</p>
           </div>
+          <img
+            src="/brand/football-3d.webp"
+            alt=""
+            aria-hidden="true"
+            width={300}
+            height={300}
+            className="home-hero-football"
+          />
         </header>
 
         <div className="reveal" style={{ ['--reveal-delay' as string]: '0.1s' }}>
