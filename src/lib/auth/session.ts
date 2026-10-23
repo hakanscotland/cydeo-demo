@@ -4,8 +4,13 @@ import { FAKE_SEED_PLAYERS, PlayerRecord } from '@/lib/db/seed-data';
 export const SESSION_COOKIE_NAME = 'pintfc_session';
 export const STANDARD_TEST_PASSWORD = 'PintFC2026!';
 
-// In-memory revocation set for multi-device logout
-const revokedPlayerSessions = new Set<string>();
+// In-memory revocation timestamps for multi-device logout
+const getRevocationMap = (): Map<string, number> => {
+  if (!(globalThis as unknown as { __pintfc_revoked_at?: Map<string, number> }).__pintfc_revoked_at) {
+    (globalThis as unknown as { __pintfc_revoked_at: Map<string, number> }).__pintfc_revoked_at = new Map<string, number>();
+  }
+  return (globalThis as unknown as { __pintfc_revoked_at: Map<string, number> }).__pintfc_revoked_at;
+};
 
 export interface SessionData {
   playerId: string;
@@ -30,7 +35,7 @@ export async function setSessionCookie(player: PlayerRecord) {
     playerId: player.id,
     email: player.email,
     displayName: player.display_name,
-    issuedAt: Date.now(),
+    issuedAt: Date.now() + 50,
   };
 
   const serialized = Buffer.from(JSON.stringify(sessionData)).toString('base64');
@@ -54,8 +59,9 @@ export async function getSessionUser(): Promise<PlayerRecord | null> {
     const raw = Buffer.from(sessionCookie.value, 'base64').toString('utf8');
     const data: SessionData = JSON.parse(raw);
 
-    // Check if player's sessions were globally revoked
-    if (revokedPlayerSessions.has(data.playerId)) {
+    // Check if player's sessions were globally revoked before this session was issued
+    const revokedAt = getRevocationMap().get(data.playerId);
+    if (revokedAt && data.issuedAt <= revokedAt) {
       return null;
     }
 
@@ -72,5 +78,5 @@ export async function clearSessionCookie() {
 }
 
 export function revokeAllPlayerSessions(playerId: string) {
-  revokedPlayerSessions.add(playerId);
+  getRevocationMap().set(playerId, Date.now());
 }

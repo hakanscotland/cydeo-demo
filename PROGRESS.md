@@ -349,6 +349,42 @@
   - All functional and quality acceptance checks are green.
   - Next up is **Session 08: Live Demo & Release** ([plans/session-08-live-demo-release.md](file:///Users/hakandag/Desktop/Cydeo-Demo/plans/session-08-live-demo-release.md)).
 
+## Session 08: Live Class Demo & Production Release
+- **Done**:
+  - Built [scripts/demo-match-setup.ts](file:///Users/hakandag/Desktop/Cydeo-Demo/scripts/demo-match-setup.ts) allowing real-time countdown / cutoff offset adjustment for classroom projector live demo.
+  - Implemented end-to-end regression test suite [tests/e2e/full-regression.spec.ts](file:///Users/hakandag/Desktop/Cydeo-Demo/tests/e2e/full-regression.spec.ts) validating user journey from Home -> Squad -> Profile -> Login -> Event Projector RSVP -> Privacy Toggles -> Sign Out.
+  - Automated screenshot capture suite [tests/e2e/screenshots.spec.ts](file:///Users/hakandag/Desktop/Cydeo-Demo/tests/e2e/screenshots.spec.ts) capturing visual snapshots of all 6 MVP screens to [docs/screenshots/](file:///Users/hakandag/Desktop/Cydeo-Demo/docs/screenshots/).
+  - Fixed multi-device session revocation in [src/lib/auth/session.ts](file:///Users/hakandag/Desktop/Cydeo-Demo/src/lib/auth/session.ts) to utilize timestamp-based invalidation (`revokedAt`), ensuring full multi-device logout security while allowing seamless subsequent re-login.
+  - Executed complete test pyramid and build verification:
+    - `tsc --noEmit` clean exit 0
+    - `eslint src` clean exit 0
+    - 11 Vitest test suites (17 tests) 100% passing
+    - 41 Playwright browser tests covering all 38 acceptance checks and 2 quality gates 100% passing
+    - `next build` (Turbopack production build) compiled successfully (14 static & dynamic routes + Proxy middleware).
+- **Proof**:
+  - Output of Session 08 exit gate (`npm run typecheck && npm run lint && npm run test:unit && npx playwright test`):
+    ```
+    > cydeo-demo@1.0.0 typecheck
+    > tsc --noEmit
+
+    > cydeo-demo@1.0.0 lint
+    > eslint src
+
+    > cydeo-demo@1.0.0 test:unit
+    > vitest run
+    Test Files  11 passed (11)
+    Tests       17 passed (17)
+
+    Running 41 tests using 1 worker
+    41 passed (34.5s)
+    ```
+- **Decisions**:
+  - Created persistent screenshot artifacts in `docs/screenshots/` for Product Owner visual sign-off.
+  - Prepared production deployment gate requiring explicit PO "YES" before touching external infrastructure.
+- **Next steps**:
+  - Await Product Owner confirmation to execute production deploy.
+
+
 
 
 
