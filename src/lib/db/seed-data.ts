@@ -55,8 +55,7 @@ export interface StandingsRecord {
 
 export const CURRENT_SEASON_ID = '00000000-0000-4000-8000-000000000001';
 
-// Exactly 40 active players + 1 archived player (Total 41)
-export const FAKE_SEED_PLAYERS: PlayerRecord[] = [
+const INITIAL_PLAYERS: PlayerRecord[] = [
   // 4 Goalkeepers
   {
     id: '11111111-0000-4000-8000-000000000001',
@@ -852,6 +851,15 @@ export const FAKE_SEED_PLAYERS: PlayerRecord[] = [
     archived: true, // EXPLICITLY ARCHIVED
   },
 ];
+
+const globalForPintFc = globalThis as unknown as {
+  __pintfc_players?: PlayerRecord[];
+};
+
+export const FAKE_SEED_PLAYERS: PlayerRecord[] =
+  globalForPintFc.__pintfc_players ??
+  (globalForPintFc.__pintfc_players = INITIAL_PLAYERS);
+
 
 // Matches: Historical league, friendly, unpublished result, upcoming demo match, and cancelled match
 export const FAKE_SEED_MATCHES: MatchRecord[] = [

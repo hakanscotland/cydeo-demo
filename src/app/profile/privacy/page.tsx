@@ -19,6 +19,11 @@ interface PlayerProfile {
 export default function PrivacySettingsPage() {
   const [profile, setProfile] = useState<PlayerProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [consentPhoto, setConsentPhoto] = useState(false);
+  const [consentNationality, setConsentNationality] = useState(false);
+  const [consentStats, setConsentStats] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,6 +38,9 @@ export default function PrivacySettingsPage() {
       .then(data => {
         if (data?.player) {
           setProfile(data.player);
+          setConsentPhoto(data.player.consents.photo);
+          setConsentNationality(data.player.consents.nationality);
+          setConsentStats(data.player.consents.stats);
         }
         setLoading(false);
       })
@@ -40,6 +48,32 @@ export default function PrivacySettingsPage() {
         router.push('/login?redirect=/profile/privacy');
       });
   }, [router]);
+
+  const handleSavePrivacy = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSaving(true);
+    setSaveSuccess(false);
+
+    try {
+      const res = await fetch('/api/me/privacy', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          consent_photo: consentPhoto,
+          consent_nationality: consentNationality,
+          consent_stats: consentStats,
+        }),
+      });
+
+      if (res.ok) {
+        setSaveSuccess(true);
+      }
+    } catch {
+      // Error handling
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const handleSignOutAllDevices = async () => {
     await fetch('/api/auth/logout-all', { method: 'POST' });
@@ -60,7 +94,8 @@ export default function PrivacySettingsPage() {
         My Privacy Settings
       </h1>
 
-      <div
+      <form
+        onSubmit={handleSavePrivacy}
         style={{
           backgroundColor: 'var(--color-bg-surface)',
           padding: '1.5rem',
@@ -69,42 +104,80 @@ export default function PrivacySettingsPage() {
           marginBottom: '2rem',
         }}
       >
-        <h2 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--color-club-dark)' }}>
+        <h2 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--color-club-dark)' }}>
           Public Profile Consents
         </h2>
-        <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', marginBottom: '1rem' }}>
-          Choose what information is visible to fans on the public website and squad directory.
+        <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', marginBottom: '1.25rem' }}>
+          Choose what information is visible to fans on the public website and squad directory. Changes take effect immediately.
         </p>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+        {saveSuccess && (
+          <div
+            data-testid="privacy-success-msg"
+            style={{
+              backgroundColor: '#ecfdf5',
+              color: 'var(--color-status-going)',
+              padding: '0.75rem',
+              borderRadius: '6px',
+              fontSize: '0.875rem',
+              marginBottom: '1rem',
+              border: '1px solid #a7f3d0',
+              fontWeight: 600,
+            }}
+          >
+            ✓ Privacy preferences updated successfully.
+          </div>
+        )}
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer' }}>
             <input
               type="checkbox"
               data-testid="toggle-consent-photo"
-              defaultChecked={profile.consents.photo}
+              checked={consentPhoto}
+              onChange={e => setConsentPhoto(e.target.checked)}
             />
-            <span>Show my photo on the public squad page</span>
+            <span style={{ fontSize: '0.95rem' }}>Show my photo on the public squad page and match rosters</span>
           </label>
 
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer' }}>
             <input
               type="checkbox"
               data-testid="toggle-consent-nationality"
-              defaultChecked={profile.consents.nationality}
+              checked={consentNationality}
+              onChange={e => setConsentNationality(e.target.checked)}
             />
-            <span>Show my nationality flag on my profile</span>
+            <span style={{ fontSize: '0.95rem' }}>Show my nationality flag on my public profile</span>
           </label>
 
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer' }}>
             <input
               type="checkbox"
               data-testid="toggle-consent-stats"
-              defaultChecked={profile.consents.stats}
+              checked={consentStats}
+              onChange={e => setConsentStats(e.target.checked)}
             />
-            <span>Show my personal performance stats</span>
+            <span style={{ fontSize: '0.95rem' }}>Show my personal performance stats on match summaries</span>
           </label>
         </div>
-      </div>
+
+        <button
+          type="submit"
+          data-testid="save-privacy-btn"
+          disabled={isSaving}
+          style={{
+            backgroundColor: 'var(--color-club-green)',
+            color: '#ffffff',
+            padding: '0.65rem 1.25rem',
+            borderRadius: '6px',
+            fontWeight: 600,
+            fontSize: '0.9rem',
+            cursor: isSaving ? 'not-allowed' : 'pointer',
+          }}
+        >
+          {isSaving ? 'Saving...' : 'Save Preferences'}
+        </button>
+      </form>
 
       <div
         style={{

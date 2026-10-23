@@ -189,3 +189,59 @@
   - Public home page and all core widgets are complete and verified.
   - Next up is **Session 05: Squad Directory, Positional Categorization & Privacy Toggles** ([plans/session-05-squad-profiles-privacy.md](file:///Users/hakandag/Desktop/Cydeo-Demo/plans/session-05-squad-profiles-privacy.md)).
 
+## Session 05: Squad Directory, Player Profiles & Privacy Toggles
+- **Done**:
+  - Implemented privacy rules in `src/lib/rules/privacy.ts` (`updatePlayerConsents`, `verifyZeroPii`).
+  - Created API routes `/api/players`, `/api/players/[id]`, and `/api/me/privacy`.
+  - Built Look B UI components: `PlayerCard` and `PositionalGroup`.
+  - Implemented the public Squad Directory page at `/squad` grouping players into Goalkeepers, Defenders, Midfielders, and Forwards (excluding archived players).
+  - Implemented individual Player Profile pages at `/squad/[id]` displaying consented biographical information, consented photo / avatar fallback, and returning 404 for invalid, archived, or unconsented players.
+  - Built branded `not-found.tsx` returning 404.
+  - Implemented self-service Privacy Settings page at `/profile/privacy` with live consent toggling and immediate public reflection.
+  - Verified all 6 owned acceptance checks:
+    - `AC-4.1.1`: Squad roster groups players by GK, DEF, MID, and FWD
+    - `AC-4.1.3`: Squad cards display shirt number, name, and position
+    - `AC-4.2.1`: Player profile loads permitted biographical info and photo
+    - `AC-4.2.2`: Profile query for invalid or archived player returns 404
+    - `AC-4.3.2`: Granular consent toggles suppress unconsented photo/nationality
+    - `AC-4.3.4`: Player updates privacy preferences and updates reflect immediately
+- **Proof**:
+  - Output of Session 05 exit gate (`npm run typecheck && npm run lint && npm run test:unit && npx playwright test tests/e2e/squad.spec.ts tests/e2e/profile.spec.ts tests/e2e/privacy.spec.ts`):
+    ```
+    > cydeo-demo@1.0.0 typecheck
+    > tsc --noEmit
+
+    > cydeo-demo@1.0.0 lint
+    > eslint src
+
+    > cydeo-demo@1.0.0 test:unit
+    > vitest run
+    ✓ tests/unit/smoke.test.ts (1 test) 3ms
+    ✓ tests/unit/rules/record.test.ts (2 tests) 4ms
+    ✓ tests/unit/rules/time.test.ts (3 tests) 18ms
+    ✓ tests/api/privacy-minors.test.ts (1 test) 2ms
+    ✓ tests/unit/components/standings.test.ts (1 test) 3ms
+    ✓ tests/api/players.test.ts (1 test) 3ms
+    ✓ tests/api/results.test.ts (3 tests) 4ms
+    ✓ tests/api/privacy-invariant.test.ts (1 test) 5ms
+    ✓ tests/unit/rules/errors.test.ts (1 test) 13ms
+    Test Files  9 passed (9)
+    Tests  14 passed (14)
+
+    Running 6 tests using 1 worker
+    ✓ 1 Granular consent toggles suppress unconsented photo/nationality (534ms)
+    ✓ 2 Player updates privacy preferences and updates reflect immediately (803ms)
+    ✓ 3 Player profile loads permitted biographical info and photo (216ms)
+    ✓ 4 Profile query for invalid or archived player returns 404 (366ms)
+    ✓ 5 Squad roster groups players by GK, DEF, MID, and FWD (481ms)
+    ✓ 6 Squad cards display shirt number, name, and position (254ms)
+    6 passed (4.5s)
+    ```
+- **Decisions**:
+  - Seed dataset `FAKE_SEED_PLAYERS` stored on `globalThis` to ensure singleton memory state across Next.js API routes and Server Components.
+  - Unconsented photos gracefully fall back to neutral silhouette placeholder.
+- **Next session needs to know**:
+  - Squad directory, player profiles, and privacy toggles are verified and operational.
+  - Next up is **Session 06: RSVP Cutoff Enforcement & Event Projector View** ([plans/session-06-rsvp-cutoff-event-view.md](file:///Users/hakandag/Desktop/Cydeo-Demo/plans/session-06-rsvp-cutoff-event-view.md)).
+
+
