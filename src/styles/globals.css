@@ -1,0 +1,44 @@
+:root {
+  --color-club-green: #1b4d3e;
+  --color-club-dark: #0f2f24;
+  --color-accent-gold: #b38f22;
+  --color-text-main: #0f172a;
+  --color-text-muted: #475569;
+  --color-bg-page: #f8fafc;
+  --color-bg-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-status-going: #15803d;
+  --color-status-maybe: #b45309;
+  --color-status-not: #b91c1c;
+
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-page);
+  color: var(--color-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
