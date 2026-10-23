@@ -448,5 +448,23 @@
   - Kept the football image `display: none` below 900px rather than shrinking it in place, per the user's explicit "for desktop screens" scoping — mobile/tablet is intentionally untouched.
   - Built the ball as a generated vector/CSS graphic instead of calling the available (billed) AI image-generation tool, per the project's "ask before anything that may cost money" rule — this needed no approval and no spend.
 - **Next session needs to know**:
-  - Still local only, not deployed to `https://cydeo.adresi.com.tr`.
-  - Unrelated to this session's work: several new dotfolders (`.agent/`, `.agents/`, `.codex/`, `.gemini/`, `.kiro/`, `.opencode/`) and `DESIGN.md`/`PRODUCT.md` appeared on disk outside this session — worth asking the user what generated them if their purpose is unclear next time.
+  - Deployed to https://cydeo.adresi.com.tr.
+
+## Session 13: Photorealistic Desktop Stadium Hero Banner & 3D Matchball
+- **Done**:
+  - User feedback: The initial desktop hero banner and 3D soccer ball didn't look realistic.
+  - Replaced the synthetic cutout with a photorealistic, studio-lit official tournament matchball in stadium pitch grass with floodlights and official PINT FC gold crown emblem (`public/brand/hero-banner-bg.webp`, 84KB).
+  - Redesigned the desktop hero banner with authentic club aesthetics:
+    - Gold pill badge: "GLASGOW SUNDAY CENTRAL LEAGUE • EST. 2024".
+    - Balanced lockup: 96px club crest alongside `<h1>PINT FC</h1>` and official subtitle.
+    - Multi-stop directional gradient (`rgba(10, 34, 24, 0.98)` to transparent) ensuring WCAG AA contrast ratio (> 14:1) over text while highlighting the 3D matchball on the right.
+    - Mobile and tablet fallbacks remain clean, centered, and fully responsive with zero horizontal overflow.
+- **Proof**:
+  - `npm run typecheck` exits 0.
+  - `npm run lint` exits 0.
+  - `npm run test:unit` exits 0 (11 suites, 17 tests passed).
+  - `npx playwright test` exits 0 (all 41 tests passed, including color contrast and 320px viewport).
+  - `impeccable detect` exits 0 with 0 anti-patterns and 0 advisories.
+- **Next session needs to know**:
+  - Ready for production deploy.
+

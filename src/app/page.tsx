@@ -37,18 +37,24 @@ export default async function HomePage() {
       >
         <header className="home-hero reveal">
           <div className="home-hero-copy">
-            <img src="/brand/pintfc-logo.svg" alt="PINT FC crest" width={150} height={150} className="home-hero-crest" />
-            <h1 className="home-hero-title">PINT FC</h1>
-            <p className="home-hero-tagline">Official Club Home &amp; Matchday Attendance Coordination</p>
+            <div className="home-hero-badge">
+              <span className="home-hero-badge-dot" />
+              <span>GLASGOW SUNDAY CENTRAL LEAGUE • EST. 2024</span>
+            </div>
+            <div className="home-hero-lockup">
+              <img
+                src="/brand/pintfc-logo.svg"
+                alt="PINT FC crest"
+                width={110}
+                height={110}
+                className="home-hero-crest"
+              />
+              <div className="home-hero-text">
+                <h1 className="home-hero-title">PINT FC</h1>
+                <p className="home-hero-tagline">Official Club Home &amp; Matchday Attendance Coordination</p>
+              </div>
+            </div>
           </div>
-          <img
-            src="/brand/football-3d.webp"
-            alt=""
-            aria-hidden="true"
-            width={300}
-            height={300}
-            className="home-hero-football"
-          />
         </header>
 
         <div className="reveal" style={{ ['--reveal-delay' as string]: '0.1s' }}>
