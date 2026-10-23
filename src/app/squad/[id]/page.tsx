@@ -95,7 +95,7 @@ export default async function PlayerProfilePage({ params }: PlayerProfilePagePro
               bottom: '12px',
               right: '16px',
               backgroundColor: 'var(--color-accent-gold)',
-              color: '#ffffff',
+              color: '#0f172a',
               fontWeight: 800,
               fontSize: '1.25rem',
               padding: '0.35rem 0.85rem',

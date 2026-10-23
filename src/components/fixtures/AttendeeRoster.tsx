@@ -70,15 +70,17 @@ export default function AttendeeRoster({ attendees }: AttendeeRosterProps) {
         backgroundColor: 'var(--color-bg-surface)',
         borderRadius: '12px',
         border: '1px solid var(--color-border)',
-        padding: '1.5rem',
+        padding: '1.25rem 1rem',
         boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
+        boxSizing: 'border-box',
+        maxWidth: '100%',
       }}
     >
       <h3 style={{ fontSize: '1.25rem', color: 'var(--color-club-dark)', fontWeight: 800, marginBottom: '1.25rem' }}>
         Teammate Attendance Roster
       </h3>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', width: '100%', boxSizing: 'border-box' }}>
         {/* GOING COLUMN */}
         <div data-testid="roster-section-going">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>

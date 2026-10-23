@@ -156,7 +156,7 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
           style={{
             display: 'inline-block',
             backgroundColor: 'var(--color-accent-gold)',
-            color: '#ffffff',
+            color: '#0f172a',
             fontWeight: 700,
             padding: '0.75rem 1.75rem',
             borderRadius: '8px',

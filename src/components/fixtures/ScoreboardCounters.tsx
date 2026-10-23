@@ -13,9 +13,11 @@ export default function ScoreboardCounters({ counts }: ScoreboardCountersProps) 
       data-testid="scoreboard-counters"
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '1rem',
+        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+        gap: '0.5rem',
         marginBottom: '2rem',
+        width: '100%',
+        boxSizing: 'border-box',
       }}
     >
       {/* GOING */}
@@ -24,14 +26,15 @@ export default function ScoreboardCounters({ counts }: ScoreboardCountersProps) 
           backgroundColor: '#ecfdf5',
           border: '2px solid var(--color-status-going)',
           borderRadius: '12px',
-          padding: '1.5rem 1rem',
+          padding: '1.25rem 0.25rem',
           textAlign: 'center',
           boxShadow: '0 4px 6px -1px rgba(21, 128, 61, 0.1)',
+          boxSizing: 'border-box',
         }}
       >
         <div
           style={{
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             fontWeight: 800,
             color: 'var(--color-status-going)',
             textTransform: 'uppercase',
@@ -44,7 +47,7 @@ export default function ScoreboardCounters({ counts }: ScoreboardCountersProps) 
         <div
           data-testid="count-going"
           style={{
-            fontSize: '3.5rem',
+            fontSize: 'clamp(2rem, 7vw, 3.5rem)',
             fontWeight: 900,
             lineHeight: 1,
             color: 'var(--color-status-going)',
@@ -62,14 +65,15 @@ export default function ScoreboardCounters({ counts }: ScoreboardCountersProps) 
           backgroundColor: '#fffbeb',
           border: '2px solid var(--color-status-maybe)',
           borderRadius: '12px',
-          padding: '1.5rem 1rem',
+          padding: '1.25rem 0.25rem',
           textAlign: 'center',
           boxShadow: '0 4px 6px -1px rgba(180, 83, 9, 0.1)',
+          boxSizing: 'border-box',
         }}
       >
         <div
           style={{
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             fontWeight: 800,
             color: 'var(--color-status-maybe)',
             textTransform: 'uppercase',
@@ -82,7 +86,7 @@ export default function ScoreboardCounters({ counts }: ScoreboardCountersProps) 
         <div
           data-testid="count-maybe"
           style={{
-            fontSize: '3.5rem',
+            fontSize: 'clamp(2rem, 7vw, 3.5rem)',
             fontWeight: 900,
             lineHeight: 1,
             color: 'var(--color-status-maybe)',
@@ -100,14 +104,15 @@ export default function ScoreboardCounters({ counts }: ScoreboardCountersProps) 
           backgroundColor: '#fef2f2',
           border: '2px solid var(--color-status-not)',
           borderRadius: '12px',
-          padding: '1.5rem 1rem',
+          padding: '1.25rem 0.25rem',
           textAlign: 'center',
           boxShadow: '0 4px 6px -1px rgba(185, 28, 28, 0.1)',
+          boxSizing: 'border-box',
         }}
       >
         <div
           style={{
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             fontWeight: 800,
             color: 'var(--color-status-not)',
             textTransform: 'uppercase',
@@ -120,7 +125,7 @@ export default function ScoreboardCounters({ counts }: ScoreboardCountersProps) 
         <div
           data-testid="count-not_going"
           style={{
-            fontSize: '3.5rem',
+            fontSize: 'clamp(2rem, 7vw, 3.5rem)',
             fontWeight: 900,
             lineHeight: 1,
             color: 'var(--color-status-not)',

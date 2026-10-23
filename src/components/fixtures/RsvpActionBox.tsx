@@ -103,9 +103,11 @@ export default function RsvpActionBox({
         backgroundColor: 'var(--color-bg-surface)',
         borderRadius: '12px',
         border: '1px solid var(--color-border)',
-        padding: '1.5rem',
+        padding: '1.25rem 1rem',
         marginBottom: '2rem',
         boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
+        boxSizing: 'border-box',
+        maxWidth: '100%',
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
@@ -198,23 +200,24 @@ export default function RsvpActionBox({
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1.25rem' }}>
+      <form onSubmit={handleSubmit} style={{ width: '100%', boxSizing: 'border-box' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '0.4rem', marginBottom: '1.25rem', width: '100%', boxSizing: 'border-box' }}>
           <button
             type="button"
             data-testid="rsvp-btn-going"
             disabled={isClosed}
             onClick={() => setSelectedStatus('going')}
             style={{
-              padding: '0.85rem 0.5rem',
+              padding: '0.75rem 0.25rem',
               borderRadius: '8px',
               fontWeight: 700,
-              fontSize: '0.95rem',
+              fontSize: 'clamp(0.75rem, 3.2vw, 0.95rem)',
               border: selectedStatus === 'going' ? '2px solid var(--color-status-going)' : '1px solid var(--color-border)',
               backgroundColor: selectedStatus === 'going' ? '#ecfdf5' : 'var(--color-bg-page)',
               color: selectedStatus === 'going' ? 'var(--color-status-going)' : 'var(--color-text-main)',
               cursor: isClosed ? 'not-allowed' : 'pointer',
               opacity: isClosed ? 0.6 : 1,
+              boxSizing: 'border-box',
             }}
           >
             ✓ Going
@@ -226,15 +229,16 @@ export default function RsvpActionBox({
             disabled={isClosed}
             onClick={() => setSelectedStatus('maybe')}
             style={{
-              padding: '0.85rem 0.5rem',
+              padding: '0.75rem 0.25rem',
               borderRadius: '8px',
               fontWeight: 700,
-              fontSize: '0.95rem',
+              fontSize: 'clamp(0.75rem, 3.2vw, 0.95rem)',
               border: selectedStatus === 'maybe' ? '2px solid var(--color-status-maybe)' : '1px solid var(--color-border)',
               backgroundColor: selectedStatus === 'maybe' ? '#fffbeb' : 'var(--color-bg-page)',
               color: selectedStatus === 'maybe' ? 'var(--color-status-maybe)' : 'var(--color-text-main)',
               cursor: isClosed ? 'not-allowed' : 'pointer',
               opacity: isClosed ? 0.6 : 1,
+              boxSizing: 'border-box',
             }}
           >
             ? Maybe
@@ -246,15 +250,16 @@ export default function RsvpActionBox({
             disabled={isClosed}
             onClick={() => setSelectedStatus('not_going')}
             style={{
-              padding: '0.85rem 0.5rem',
+              padding: '0.75rem 0.25rem',
               borderRadius: '8px',
               fontWeight: 700,
-              fontSize: '0.95rem',
+              fontSize: 'clamp(0.75rem, 3.2vw, 0.95rem)',
               border: selectedStatus === 'not_going' ? '2px solid var(--color-status-not)' : '1px solid var(--color-border)',
               backgroundColor: selectedStatus === 'not_going' ? '#fef2f2' : 'var(--color-bg-page)',
               color: selectedStatus === 'not_going' ? 'var(--color-status-not)' : 'var(--color-text-main)',
               cursor: isClosed ? 'not-allowed' : 'pointer',
               opacity: isClosed ? 0.6 : 1,
+              boxSizing: 'border-box',
             }}
           >
             ✕ Not Going

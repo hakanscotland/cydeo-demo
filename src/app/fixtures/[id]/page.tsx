@@ -125,7 +125,7 @@ export default function EventPage({ params }: EventPageProps) {
   return (
     <main
       style={{
-        padding: '2rem 1rem',
+        padding: '1.5rem 0.75rem',
         maxWidth: '960px',
         margin: '0 auto',
         width: '100%',
@@ -153,11 +153,15 @@ export default function EventPage({ params }: EventPageProps) {
         style={{
           backgroundColor: 'var(--color-club-dark)',
           color: '#ffffff',
-          padding: '2rem 1.5rem',
+          padding: '1.5rem 1rem',
           borderRadius: '12px',
           marginBottom: '2rem',
           textAlign: 'center',
           boxShadow: '0 4px 12px rgba(15, 47, 36, 0.2)',
+          boxSizing: 'border-box',
+          maxWidth: '100%',
+          overflowWrap: 'break-word',
+          wordBreak: 'break-word',
         }}
       >
         <div style={{ display: 'inline-block', marginBottom: '0.5rem' }}>
@@ -181,11 +185,12 @@ export default function EventPage({ params }: EventPageProps) {
         <h1
           data-testid="fixture-title"
           style={{
-            fontSize: '2.5rem',
+            fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
             fontWeight: 900,
             letterSpacing: '-0.025em',
             margin: '0.5rem 0',
             color: '#ffffff',
+            lineHeight: 1.2,
           }}
         >
           PINT FC vs {fixture.opponent_name}
