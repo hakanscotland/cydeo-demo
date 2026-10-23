@@ -126,3 +126,66 @@
 - **Next session needs to know**:
   - Authentication, sessions, and route protection are fully operational.
   - Next up is **Session 04: Public Home Page & Core Widgets** ([plans/session-04-home-page.md](file:///Users/hakandag/Desktop/Cydeo-Demo/plans/session-04-home-page.md)).
+
+## Session 04: Public Home Page & Core Widgets
+- **Done**:
+  - Implemented temporal business rules `src/lib/rules/time.ts` (`formatKickoff`, `calculateCountdown`, `isCutoffPassed`) and season record rules `src/lib/rules/record.ts`.
+  - Built API Route Handlers for `/api/fixtures/next`, `/api/results/recent`, `/api/record/season`, and `/api/standings`.
+  - Implemented Look B UI components: `NextMatchHero`, `CountdownTimer`, `SeasonRecord`, `LatestResults`, and `MiniStandings`.
+  - Assembled `src/app/page.tsx` with responsive layout, live countdown, cancelled match notice, and mini standings table snapshot.
+  - Verified all 11 owned acceptance checks:
+    - `AC-2.1.1`: Next match hero displays opponent, venue, and kickoff datetime
+    - `AC-2.1.2`: Next match live countdown dynamically decrements time to kickoff
+    - `AC-2.1.3`: RSVP cutoff status indicator displays open or closed state
+    - `AC-2.1.4`: Cancelled match prominently displays cancellation notice
+    - `AC-2.1.5`: Competition tag distinguishes between League and Friendly fixture
+    - `AC-2.1.6`: Empty state renders friendly message when no upcoming fixtures
+    - `AC-2.2.1`: Season record calculates accurate Win-Draw-Loss aggregates
+    - `AC-2.2.2`: Season record calculates accurate Goals For, Against, and Diff
+    - `AC-2.3.1`: Latest published results display scores and outcome badges
+    - `AC-2.4.1`: Mini league standings table displays rank, team, and points
+    - `AC-2.4.2`: PINT FC row is visually highlighted in mini standings table
+- **Proof**:
+  - Output of Session 04 exit gate (`npm run typecheck && npm run lint && npm run test:unit && npx playwright test tests/e2e/home.spec.ts`):
+    ```
+    > cydeo-demo@1.0.0 typecheck
+    > tsc --noEmit
+
+    > cydeo-demo@1.0.0 lint
+    > eslint src
+
+    > cydeo-demo@1.0.0 test:unit
+    > vitest run
+    ✓ tests/unit/smoke.test.ts (1 test) 4ms
+    ✓ tests/unit/rules/errors.test.ts (1 test) 4ms
+    ✓ tests/api/players.test.ts (1 test) 2ms
+    ✓ tests/unit/components/standings.test.ts (1 test) 2ms
+    ✓ tests/api/privacy-invariant.test.ts (1 test) 3ms
+    ✓ tests/api/privacy-minors.test.ts (1 test) 4ms
+    ✓ tests/api/results.test.ts (3 tests) 2ms
+    ✓ tests/unit/rules/record.test.ts (2 tests) 3ms
+    ✓ tests/unit/rules/time.test.ts (3 tests) 15ms
+    Test Files  9 passed (9)
+    Tests  14 passed (14)
+
+    Running 11 tests using 1 worker
+    ✓ 1 Next match hero displays opponent, venue, and kickoff datetime (453ms)
+    ✓ 2 Next match live countdown dynamically decrements time to kickoff (208ms)
+    ✓ 3 RSVP cutoff status indicator displays open or closed state (207ms)
+    ✓ 4 Cancelled match prominently displays cancellation notice (214ms)
+    ✓ 5 Competition tag distinguishes between League and Friendly fixture (185ms)
+    ✓ 6 Empty state renders friendly message when no upcoming fixtures (171ms)
+    ✓ 7 Season record calculates accurate Win-Draw-Loss aggregates (185ms)
+    ✓ 8 Season record calculates accurate Goals For, Against, and Diff (189ms)
+    ✓ 9 Latest published results display scores and outcome badges (195ms)
+    ✓ 10 Mini league standings table displays rank, team, and points (198ms)
+    ✓ 11 PINT FC row is visually highlighted in mini standings table (181ms)
+    11 passed (4.4s)
+    ```
+- **Decisions**:
+  - Real-time client countdown ticks every 1 second; cutoff indicator links directly to event page.
+  - Responsive grid uses `minmax(280px, 1fr)` to guarantee zero horizontal overflow on 320px mobile viewports.
+- **Next session needs to know**:
+  - Public home page and all core widgets are complete and verified.
+  - Next up is **Session 05: Squad Directory, Positional Categorization & Privacy Toggles** ([plans/session-05-squad-profiles-privacy.md](file:///Users/hakandag/Desktop/Cydeo-Demo/plans/session-05-squad-profiles-privacy.md)).
+

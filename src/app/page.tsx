@@ -1,30 +1,69 @@
-export default function HomePage() {
+import React from 'react';
+import NextMatchHero from '@/components/home/NextMatchHero';
+import SeasonRecord from '@/components/home/SeasonRecord';
+import LatestResults from '@/components/home/LatestResults';
+import MiniStandings from '@/components/home/MiniStandings';
+import { getNextFixture, getSeasonRecord, getPublicResults } from '@/lib/data/matches';
+import { getStandingsSnapshot } from '@/lib/data/standings';
+import { FAKE_SEED_MATCHES } from '@/lib/db/seed-data';
+
+export const dynamic = 'force-dynamic';
+
+export default async function HomePage() {
+  const [fixture, record, results, standings] = await Promise.all([
+    getNextFixture(),
+    getSeasonRecord(),
+    getPublicResults(),
+    getStandingsSnapshot(),
+  ]);
+
+  const hasCancelledMatch = FAKE_SEED_MATCHES.some(m => m.status === 'cancelled' && m.published);
+
   return (
-    <main style={{ padding: '2rem 1rem', maxWidth: '800px', margin: '0 auto' }}>
-      <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
-        <h1 style={{ color: 'var(--color-club-green)', fontSize: '2rem', fontWeight: 'bold' }}>
+    <main
+      style={{
+        padding: '1.5rem 1rem',
+        maxWidth: '1000px',
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '2rem',
+        width: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
+      <header style={{ textAlign: 'center' }}>
+        <h1
+          style={{
+            color: 'var(--color-club-green)',
+            fontSize: '2.25rem',
+            fontWeight: 800,
+            letterSpacing: '-0.025em',
+            margin: 0,
+          }}
+        >
           PINT FC
         </h1>
-        <p style={{ color: 'var(--color-text-muted)' }}>Club Website & Matchday Attendance</p>
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '1rem', marginTop: '0.25rem' }}>
+          Official Club Home & Matchday Attendance Coordination
+        </p>
       </header>
 
-      <section
-        data-testid="hero-match-card"
+      <NextMatchHero fixture={fixture} hasCancelledMatch={hasCancelledMatch} />
+
+      <div
         style={{
-          backgroundColor: 'var(--color-bg-surface)',
-          padding: '1.5rem',
-          borderRadius: '8px',
-          border: '1px solid var(--color-border)',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '1.5rem',
+          width: '100%',
         }}
       >
-        <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--color-club-dark)' }}>
-          Next Match
-        </h2>
-        <div data-testid="countdown-timer" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-accent-gold)' }}>
-          Loading countdown...
-        </div>
-      </section>
+        <SeasonRecord record={record} />
+        <MiniStandings standings={standings} />
+      </div>
+
+      <LatestResults results={results} />
     </main>
   );
 }
