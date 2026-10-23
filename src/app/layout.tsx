@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: 'Official club website and matchday attendance for PINT FC.',
 };
 
+import Header from '../components/layout/Header';
+
 export default function RootLayout({
   children,
 }: {
@@ -14,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div id="app-root">{children}</div>
+        <div id="app-root">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );
