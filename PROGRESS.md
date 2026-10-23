@@ -244,4 +244,71 @@
   - Squad directory, player profiles, and privacy toggles are verified and operational.
   - Next up is **Session 06: RSVP Cutoff Enforcement & Event Projector View** ([plans/session-06-rsvp-cutoff-event-view.md](file:///Users/hakandag/Desktop/Cydeo-Demo/plans/session-06-rsvp-cutoff-event-view.md)).
 
+## Session 06: Going / Not Going, RSVP Cutoff & Event Projector View
+- **Done**:
+  - Implemented RSVP data layer in `src/lib/data/rsvps.ts` with singleton memory storage on `globalThis`, initial seed RSVPs, count aggregations, roster queries, and atomic upsert operations.
+  - Built API Route Handlers:
+    - `GET /api/fixtures/[id]` returning match details, counts, attendee roster (with private teammate notes strictly omitted), and caller's own RSVP note.
+    - `POST /api/fixtures/[id]/rsvp` with strict cutoff validation returning `403 CUTOFF_PASSED` if `now() >= rsvp_cutoff_at`.
+    - `GET /api/fixtures/[id]/counts` lightweight polling endpoint with `no-store` headers.
+  - Implemented `useAttendancePolling` hook with visibility detection (`document.visibilityState === 'hidden'`) and primitive field dependency comparisons.
+  - Implemented Look B UI components:
+    - `ScoreboardCounters`: High-visibility projector attendance counters for Going, Maybe, and Not Going.
+    - `RsvpActionBox`: Interactive RSVP selection, private note input, cutoff disabled alert.
+    - `AttendeeRoster`: Categorized Going / Maybe / Not Going columns with zero private note exposure (AC-3.3.6).
+  - Built Event projector page at `/fixtures/[id]`.
+  - Verified all 7 owned acceptance checks:
+    - `AC-3.3.1`: Player RSVP submission (Going / Maybe / Not Going)
+    - `AC-3.3.2`: Player RSVP update prior to cutoff
+    - `AC-3.3.4`: Strict cutoff rejection (403 CUTOFF_PASSED and closed alert)
+    - `AC-3.3.5`: Authenticated player views teammates attendance roster
+    - `AC-3.3.6`: Teammate private RSVP reasons hidden from other players
+    - `AC-3.4.1`: Event page renders high-visibility attendance counts & roster
+    - `AC-3.4.3`: Open event page reflects count change within 15 seconds (via live polling)
+- **Proof**:
+  - Output of Session 06 exit gate (`npm run typecheck && npm run lint && npm run test:unit && npx vitest run tests/api/rsvp-cutoff.test.ts tests/api/rsvp-privacy.test.ts && npx playwright test tests/e2e/rsvp.spec.ts tests/e2e/event-projector.spec.ts tests/e2e/live-sync.spec.ts`):
+    ```
+    > cydeo-demo@1.0.0 typecheck
+    > tsc --noEmit
+
+    > cydeo-demo@1.0.0 lint
+    > eslint src
+
+    > cydeo-demo@1.0.0 test:unit
+    > vitest run
+    ✓ tests/unit/components/standings.test.ts (1 test) 2ms
+    ✓ tests/api/rsvp-cutoff.test.ts (2 tests) 3ms
+    ✓ tests/api/privacy-invariant.test.ts (1 test) 4ms
+    ✓ tests/unit/rules/record.test.ts (2 tests) 3ms
+    ✓ tests/api/players.test.ts (1 test) 3ms
+    ✓ tests/api/results.test.ts (3 tests) 2ms
+    ✓ tests/unit/rules/errors.test.ts (1 test) 4ms
+    ✓ tests/unit/rules/time.test.ts (3 tests) 23ms
+    ✓ tests/unit/smoke.test.ts (1 test) 4ms
+    ✓ tests/api/privacy-minors.test.ts (1 test) 1ms
+    ✓ tests/api/rsvp-privacy.test.ts (1 test) 3ms
+    Test Files  11 passed (11)
+    Tests  17 passed (17)
+
+    ✓ tests/api/rsvp-privacy.test.ts (1 test) 3ms
+    ✓ tests/api/rsvp-cutoff.test.ts (2 tests) 2ms
+    Test Files  2 passed (2)
+    Tests  3 passed (3)
+
+    Running 5 tests using 1 worker
+    ✓ 1 Event page renders high-visibility attendance counts & roster (1.3s)
+    ✓ 2 Open event page reflects count change within 15 seconds (5.9s)
+    ✓ 3 Authenticated player submits Going/Maybe/Not Going attendance (657ms)
+    ✓ 4 Player updates RSVP choice prior to cutoff timestamp (575ms)
+    ✓ 5 Authenticated player views teammates attendance roster (912ms)
+    5 passed (11.4s)
+    ```
+- **Decisions**:
+  - Polling hook pauses on inactive tabs to prevent bandwidth and compute waste.
+  - Private notes are isolated exclusively to the author's own session response (`user_rsvp`).
+- **Next session needs to know**:
+  - Core MVP functionality and live coordination are complete.
+  - Next up is **Session 07: Quality Gates (Look B, WCAG AA Contrast, 320px Viewport)** ([plans/session-07-quality-gates-look-b.md](file:///Users/hakandag/Desktop/Cydeo-Demo/plans/session-07-quality-gates-look-b.md)).
+
+
 
