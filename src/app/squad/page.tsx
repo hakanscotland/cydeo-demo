@@ -18,8 +18,6 @@ export default async function SquadPage() {
         aria-hidden="true"
         style={{
           backgroundColor: 'var(--color-club-dark)',
-          backgroundImage:
-            'repeating-linear-gradient(118deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 28px), radial-gradient(closest-side at 50% -20%, rgba(179,143,34,0.22), rgba(179,143,34,0) 70%)',
           padding: '2.5rem 1rem 3rem',
         }}
       >
@@ -35,25 +33,13 @@ export default async function SquadPage() {
             gap: '0.5rem',
           }}
         >
-          <svg width="48" height="48" viewBox="0 0 56 56" aria-hidden="true">
-            <path
-              d="M28 2 L52 11 V27 C52 41 42 51 28 54 C14 51 4 41 4 27 V11 Z"
-              fill="var(--color-club-green)"
-              stroke="var(--color-accent-gold)"
-              strokeWidth="2"
-            />
-            <text
-              x="28"
-              y="35"
-              textAnchor="middle"
-              fontFamily="Georgia, 'Times New Roman', serif"
-              fontWeight="700"
-              fontSize="18"
-              fill="#ffffff"
-            >
-              PFC
-            </text>
-          </svg>
+          <img
+            src="/brand/pintfc-logo.svg"
+            alt="PINT FC crest"
+            width={96}
+            height={96}
+            style={{ display: 'block', filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.3))' }}
+          />
           <h1
             style={{
               fontSize: '2.25rem',

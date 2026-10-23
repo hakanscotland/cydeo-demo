@@ -40,9 +40,9 @@ export default function RsvpActionBox({
           marginBottom: '2rem',
         }}
       >
-        <h3 style={{ fontSize: '1.15rem', color: 'var(--color-club-dark)', marginBottom: '0.5rem' }}>
+        <h2 style={{ fontSize: '1.25rem', color: 'var(--color-club-dark)', fontWeight: 800, marginBottom: '0.5rem' }}>
           Matchday Attendance Coordination
-        </h3>
+        </h2>
         <p style={{ color: 'var(--color-text-muted)', marginBottom: '1.25rem', fontSize: '0.95rem' }}>
           Are you playing? Sign in with your player account to record your RSVP before the cutoff.
         </p>
@@ -111,9 +111,9 @@ export default function RsvpActionBox({
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-        <h3 style={{ fontSize: '1.2rem', color: 'var(--color-club-dark)', fontWeight: 800 }}>
+        <h2 style={{ fontSize: '1.25rem', color: 'var(--color-club-dark)', fontWeight: 800, margin: 0 }}>
           My Match Attendance
-        </h3>
+        </h2>
 
         {currentRsvp ? (
           <div

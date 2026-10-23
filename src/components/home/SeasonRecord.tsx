@@ -50,26 +50,28 @@ export default function SeasonRecord({ record }: SeasonRecordProps) {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '0.75rem',
+          gap: '0.5rem',
           textAlign: 'center',
           marginBottom: '1.25rem',
+          paddingBottom: '1rem',
+          borderBottom: '1px solid var(--color-border)',
         }}
       >
-        <div style={{ backgroundColor: 'var(--color-bg-page)', padding: '0.75rem 0.5rem', borderRadius: '8px' }}>
-          <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Played</div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-text-main)' }}>{record.played}</div>
+        <div style={{ padding: '0.5rem 0.25rem' }}>
+          <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Played</div>
+          <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--color-text-main)', marginTop: '0.2rem' }}>{record.played}</div>
         </div>
-        <div style={{ backgroundColor: '#ecfdf5', padding: '0.75rem 0.5rem', borderRadius: '8px' }}>
-          <div style={{ fontSize: '0.75rem', color: 'var(--color-status-going)', textTransform: 'uppercase' }}>Won</div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-status-going)' }}>{record.won}</div>
+        <div style={{ padding: '0.5rem 0.25rem' }}>
+          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-status-going)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Won</div>
+          <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--color-status-going)', marginTop: '0.2rem' }}>{record.won}</div>
         </div>
-        <div style={{ backgroundColor: '#fffbeb', padding: '0.75rem 0.5rem', borderRadius: '8px' }}>
-          <div style={{ fontSize: '0.75rem', color: 'var(--color-status-maybe)', textTransform: 'uppercase' }}>Drawn</div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-status-maybe)' }}>{record.drawn}</div>
+        <div style={{ padding: '0.5rem 0.25rem' }}>
+          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-status-maybe)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Drawn</div>
+          <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--color-status-maybe)', marginTop: '0.2rem' }}>{record.drawn}</div>
         </div>
-        <div style={{ backgroundColor: '#fef2f2', padding: '0.75rem 0.5rem', borderRadius: '8px' }}>
-          <div style={{ fontSize: '0.75rem', color: 'var(--color-status-not)', textTransform: 'uppercase' }}>Lost</div>
-          <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-status-not)' }}>{record.lost}</div>
+        <div style={{ padding: '0.5rem 0.25rem' }}>
+          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-status-not)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Lost</div>
+          <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--color-status-not)', marginTop: '0.2rem' }}>{record.lost}</div>
         </div>
       </div>
 
@@ -79,10 +81,9 @@ export default function SeasonRecord({ record }: SeasonRecordProps) {
           display: 'flex',
           justifyContent: 'space-around',
           alignItems: 'center',
-          padding: '0.75rem 1rem',
-          backgroundColor: 'var(--color-bg-page)',
-          borderRadius: '8px',
-          border: '1px solid var(--color-border)',
+          padding: '0.5rem 0.5rem 0',
+          flexWrap: 'wrap',
+          gap: '0.5rem',
         }}
       >
         <div>

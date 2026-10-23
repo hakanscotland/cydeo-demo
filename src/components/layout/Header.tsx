@@ -47,8 +47,19 @@ export default function Header() {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-        <Link href="/" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff' }}>
-          ⚽ PINT FC
+        <Link
+          href="/"
+          style={{
+            fontSize: '1.25rem',
+            fontWeight: 'bold',
+            color: '#ffffff',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+          }}
+        >
+          <img src="/brand/pintfc-logo.svg" alt="" width={44} height={44} style={{ display: 'block' }} />
+          PINT FC
         </Link>
         <nav style={{ display: 'flex', gap: '1rem', fontSize: '0.9rem' }}>
           <Link href="/" style={{ color: '#ffffff' }}>

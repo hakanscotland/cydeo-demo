@@ -406,3 +406,30 @@
 - **Next session needs to know**:
   - Production deploy to Vercel/Supabase is live and operational on `https://cydeo.adresi.com.tr`.
 
+## Session 10: Official Crest Integration
+- **Done**:
+  - Took the user-supplied `pintfc-logo.svg` (gold 3D shield crest, root of repo, already git-tracked) and copied it to `public/brand/pintfc-logo.svg` so it's servable as a static asset.
+  - Replaced the hand-built placeholder "PFC" shield SVGs from Session 09 with the real crest in: `src/components/layout/Header.tsx` (30px, next to "PINT FC" wordmark, replacing the ⚽ emoji), `src/app/page.tsx` home header (72px), `src/components/home/NextMatchHero.tsx` opponent-matchup badge (36px, replacing the text-only "PFC" circle), and `src/app/squad/page.tsx` banner (60px).
+  - Generated `src/app/icon.png` (512×512) and `src/app/apple-icon.png` (180×180) from a tightly-cropped, transparent-background render of the crest, using Next.js's App Router favicon/apple-touch-icon file convention (no `<link>` tags needed) — the site previously had no favicon at all.
+- **Proof**:
+  - `npm run typecheck`, `npm run lint`, `npm run test:unit`, `npm run test:e2e` all pass (same output shape as Session 09).
+  - Verified visually via Playwright screenshots at 1280px and 390px on `/` and `/squad`: crest renders crisply on both the green header and dark hero/banner backgrounds (the crest's white interior plate gives it contrast on dark green without needing an extra backing chip), no console errors beyond the expected unauthenticated `/api/me` 401.
+- **Decisions**:
+  - Kept the original `pintfc-logo.svg` at the repo root as-is (already git-tracked) rather than moving/deleting it, per the "never delete files" rule — `public/brand/pintfc-logo.svg` is a copy, not a move.
+  - Used the raw SVG (~370KB) directly via `<img src="/brand/pintfc-logo.svg">` at all in-page sizes rather than an optimized/minified copy, since it's cached by the browser after first load; only the favicon got a separate lightweight raster export.
+- **Next session needs to know**:
+  - This session's changes are **local only** — not yet deployed to `https://cydeo.adresi.com.tr`. Per project rules, deploy needs explicit user go-ahead.
+  - If the SVG's 370KB size becomes a real perf concern, the master file in `public/brand/` can be run through an SVG optimizer (svgo) without touching the root copy.
+
+## Session 11: Larger Crest + Squad Spotlight Imagery on Home
+- **Done**:
+  - User feedback: the crest from Session 10 read too small. Enlarged it everywhere: `Header.tsx` 30px→44px, home header (`src/app/page.tsx`) 72px→128px (plus a drop-shadow), `NextMatchHero` opponent-matchup badge 36px→52px (opponent initials badge grown to match, 36px→46px), squad banner (`src/app/squad/page.tsx`) 60px→96px.
+  - Added `src/components/home/SquadSpotlight.tsx`: a horizontally-scrolling strip of 8 real (fake) player photo cards on the home page, round-robin sampled across forward/midfielder/defender/goalkeeper so the mix is representative, each linking to its `/squad/[id]` profile, with a "View Full Squad →" link to `/squad`. Reuses the existing `player_url` consent pipeline (`getPublicPlayers()`), so privacy/consent rules from Session 05 still apply — a player who opted out of their photo still only shows initials, same as on the squad page.
+  - Wired `SquadSpotlight` into `src/app/page.tsx` between the stats grid and Latest Results, with its own staggered reveal delay.
+- **Proof**:
+  - `npm run typecheck`, `npm run lint`, `npm run test:unit`, `npm run test:e2e` all pass.
+  - Verified visually via full-page Playwright screenshots at 1280px and 390px: crest reads clearly at the new sizes on both light and dark backgrounds, Squad Spotlight scrolls horizontally and looks correct collapsed to 2 visible cards + a peek on mobile, no console errors beyond the expected unauthenticated `/api/me` 401.
+- **Decisions**:
+  - Picked spotlight players by round-robin across positions rather than just the first 8 by squad number, so the strip isn't all goalkeepers/defenders (which sort first in the seed data).
+- **Next session needs to know**:
+  - Still local only, not deployed.

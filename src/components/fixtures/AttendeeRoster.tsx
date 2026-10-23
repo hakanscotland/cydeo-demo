@@ -76,18 +76,18 @@ export default function AttendeeRoster({ attendees }: AttendeeRosterProps) {
         maxWidth: '100%',
       }}
     >
-      <h3 style={{ fontSize: '1.25rem', color: 'var(--color-club-dark)', fontWeight: 800, marginBottom: '1.25rem' }}>
+      <h2 style={{ fontSize: '1.25rem', color: 'var(--color-club-dark)', fontWeight: 800, marginBottom: '1.25rem' }}>
         Teammate Attendance Roster
-      </h3>
+      </h2>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', width: '100%', boxSizing: 'border-box' }}>
         {/* GOING COLUMN */}
         <div data-testid="roster-section-going">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'var(--color-status-going)' }} />
-            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-status-going)', margin: 0 }}>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-status-going)', margin: 0 }}>
               Going ({going.length})
-            </h4>
+            </h3>
           </div>
           {renderPlayerList(going, 'No confirmed players yet.')}
         </div>
@@ -96,9 +96,9 @@ export default function AttendeeRoster({ attendees }: AttendeeRosterProps) {
         <div data-testid="roster-section-maybe">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'var(--color-status-maybe)' }} />
-            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-status-maybe)', margin: 0 }}>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-status-maybe)', margin: 0 }}>
               Maybe ({maybe.length})
-            </h4>
+            </h3>
           </div>
           {renderPlayerList(maybe, 'No players marked maybe.')}
         </div>
@@ -107,9 +107,9 @@ export default function AttendeeRoster({ attendees }: AttendeeRosterProps) {
         <div data-testid="roster-section-not_going">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'var(--color-status-not)' }} />
-            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-status-not)', margin: 0 }}>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-status-not)', margin: 0 }}>
               Not Going ({notGoing.length})
-            </h4>
+            </h3>
           </div>
           {renderPlayerList(notGoing, 'No players marked unavailable.')}
         </div>

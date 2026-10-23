@@ -60,10 +60,11 @@ export default function LatestResults({ results }: LatestResultsProps) {
         </span>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-        {results.map((result) => {
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {results.map((result, idx) => {
           const formatted = formatKickoff(result.kickoff_at, 'Europe/London');
           const isHome = result.home_or_away === 'home';
+          const isLast = idx === results.length - 1;
 
           return (
             <div
@@ -74,10 +75,8 @@ export default function LatestResults({ results }: LatestResultsProps) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '0.75rem 1rem',
-                backgroundColor: 'var(--color-bg-page)',
-                borderRadius: '8px',
-                border: '1px solid var(--color-border)',
+                padding: '0.85rem 0.5rem',
+                borderBottom: isLast ? 'none' : '1px solid var(--color-border)',
                 flexWrap: 'wrap',
                 gap: '0.5rem',
               }}

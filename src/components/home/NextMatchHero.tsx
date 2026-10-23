@@ -64,8 +64,6 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
       data-testid="hero-match-card"
       style={{
         backgroundColor: 'var(--color-club-dark)',
-        backgroundImage:
-          'repeating-linear-gradient(118deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 28px)',
         color: '#ffffff',
         padding: '2rem 1.5rem',
         borderRadius: '12px',
@@ -74,20 +72,6 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
         overflow: 'hidden',
       }}
     >
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '-30%',
-          right: '-10%',
-          width: '320px',
-          height: '320px',
-          borderRadius: '50%',
-          background: 'radial-gradient(closest-side, rgba(179,143,34,0.22), rgba(179,143,34,0) 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-
       {(isCancelled || hasCancelledMatch) && (
         <div
           data-testid="cancelled-match-alert"
@@ -144,24 +128,13 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
           Next Fixture
         </p>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.85rem', margin: '0.25rem 0 0.5rem', flexWrap: 'wrap' }}>
-          <span
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-club-green)',
-              border: '1px solid rgba(255,255,255,0.3)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '0.8rem',
-              fontWeight: 800,
-              color: '#ffffff',
-              flexShrink: 0,
-            }}
-          >
-            PFC
-          </span>
+          <img
+            src="/brand/pintfc-logo.svg"
+            alt="PINT FC"
+            width={52}
+            height={52}
+            style={{ flexShrink: 0, display: 'block' }}
+          />
           <h2
             data-testid="hero-opponent-name"
             style={{
@@ -176,15 +149,15 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
           <span
             aria-hidden="true"
             style={{
-              width: '36px',
-              height: '36px',
+              width: '46px',
+              height: '46px',
               borderRadius: '50%',
               backgroundColor: 'var(--color-accent-gold)',
               border: '1px solid rgba(255,255,255,0.3)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '0.8rem',
+              fontSize: '0.95rem',
               fontWeight: 800,
               color: '#0f172a',
               flexShrink: 0,
