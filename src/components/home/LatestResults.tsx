@@ -69,6 +69,7 @@ export default function LatestResults({ results }: LatestResultsProps) {
             <div
               key={result.id}
               data-testid="result-card"
+              className="result-row-motion"
               style={{
                 display: 'flex',
                 alignItems: 'center',

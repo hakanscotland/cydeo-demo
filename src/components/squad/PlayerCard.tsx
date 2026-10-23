@@ -13,6 +13,7 @@ export default function PlayerCard({ player }: PlayerCardProps) {
     <Link
       href={`/squad/${player.id}`}
       data-testid="player-card"
+      className="player-card-motion"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -23,7 +24,6 @@ export default function PlayerCard({ player }: PlayerCardProps) {
         boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
         textDecoration: 'none',
         color: 'inherit',
-        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
       }}
     >
       <div
@@ -35,6 +35,7 @@ export default function PlayerCard({ player }: PlayerCardProps) {
           justifyContent: 'center',
           position: 'relative',
           borderBottom: '1px solid var(--color-border)',
+          overflow: 'hidden',
         }}
       >
         {player.photo_url ? (
@@ -42,6 +43,7 @@ export default function PlayerCard({ player }: PlayerCardProps) {
             src={player.photo_url}
             alt={player.display_name}
             data-testid="player-photo"
+            className="player-photo-motion"
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         ) : (
@@ -51,15 +53,23 @@ export default function PlayerCard({ player }: PlayerCardProps) {
               width: '64px',
               height: '64px',
               borderRadius: '50%',
-              backgroundColor: 'var(--color-border)',
+              backgroundColor: 'var(--color-club-green)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--color-text-muted)',
-              fontSize: '1.75rem',
+              color: '#ffffff',
+              fontSize: '1.1rem',
+              fontWeight: 800,
+              letterSpacing: '0.02em',
             }}
           >
-            👤
+            {player.display_name
+              .split(/\s+/)
+              .map(w => w.replace('.', '')[0])
+              .filter(Boolean)
+              .slice(0, 2)
+              .join('')
+              .toUpperCase()}
           </div>
         )}
 

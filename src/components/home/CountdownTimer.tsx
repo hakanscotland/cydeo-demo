@@ -23,6 +23,7 @@ export default function CountdownTimer({ targetUtc }: CountdownTimerProps) {
 
   return (
     <div
+      key={formatted}
       data-testid="countdown-timer"
       style={{
         fontSize: '1.75rem',
@@ -30,6 +31,8 @@ export default function CountdownTimer({ targetUtc }: CountdownTimerProps) {
         fontVariantNumeric: 'tabular-nums',
         color: 'var(--color-accent-gold)',
         letterSpacing: '0.05em',
+        animation: 'tick-pulse 1s ease-out',
+        display: 'inline-block',
       }}
     >
       {formatted}

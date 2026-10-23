@@ -51,12 +51,21 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
   const isClosed = isCutoffPassed(fixture.rsvp_cutoff_at);
   const formattedTime = formatKickoff(fixture.kickoff_at, fixture.venue_timezone || 'Europe/London');
   const isCancelled = fixture.status === 'cancelled';
+  const opponentInitials = fixture.opponent_name
+    .split(/\s+/)
+    .map(w => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
 
   return (
     <section
       data-testid="hero-match-card"
       style={{
         backgroundColor: 'var(--color-club-dark)',
+        backgroundImage:
+          'repeating-linear-gradient(118deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 28px)',
         color: '#ffffff',
         padding: '2rem 1.5rem',
         borderRadius: '12px',
@@ -65,6 +74,20 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
         overflow: 'hidden',
       }}
     >
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '-30%',
+          right: '-10%',
+          width: '320px',
+          height: '320px',
+          borderRadius: '50%',
+          background: 'radial-gradient(closest-side, rgba(179,143,34,0.22), rgba(179,143,34,0) 70%)',
+          pointerEvents: 'none',
+        }}
+      />
+
       {(isCancelled || hasCancelledMatch) && (
         <div
           data-testid="cancelled-match-alert"
@@ -102,6 +125,7 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
 
         <span
           data-testid="rsvp-cutoff-pill"
+          className={isClosed ? undefined : 'pulse-pill'}
           style={{
             backgroundColor: isClosed ? 'var(--color-status-not)' : 'var(--color-status-going)',
             color: '#ffffff',
@@ -119,17 +143,56 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
         <p style={{ color: '#94a3b8', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.25rem' }}>
           Next Fixture
         </p>
-        <h2
-          data-testid="hero-opponent-name"
-          style={{
-            fontSize: '2rem',
-            fontWeight: 800,
-            color: '#ffffff',
-            margin: '0.25rem 0 0.5rem',
-          }}
-        >
-          PINT FC vs {fixture.opponent_name}
-        </h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.85rem', margin: '0.25rem 0 0.5rem', flexWrap: 'wrap' }}>
+          <span
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              backgroundColor: 'var(--color-club-green)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '0.8rem',
+              fontWeight: 800,
+              color: '#ffffff',
+              flexShrink: 0,
+            }}
+          >
+            PFC
+          </span>
+          <h2
+            data-testid="hero-opponent-name"
+            style={{
+              fontSize: '2rem',
+              fontWeight: 800,
+              color: '#ffffff',
+              margin: 0,
+            }}
+          >
+            PINT FC vs {fixture.opponent_name}
+          </h2>
+          <span
+            aria-hidden="true"
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              backgroundColor: 'var(--color-accent-gold)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '0.8rem',
+              fontWeight: 800,
+              color: '#0f172a',
+              flexShrink: 0,
+            }}
+          >
+            {opponentInitials}
+          </span>
+        </div>
         <p
           data-testid="hero-venue-name"
           style={{ color: '#cbd5e1', fontSize: '1rem', marginBottom: '0.5rem' }}
@@ -153,6 +216,7 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
         <Link
           href={`/fixtures/${fixture.id}`}
           data-testid="view-event-link"
+          className="cta-button"
           style={{
             display: 'inline-block',
             backgroundColor: 'var(--color-accent-gold)',
@@ -160,7 +224,6 @@ export default function NextMatchHero({ fixture, hasCancelledMatch }: NextMatchH
             fontWeight: 700,
             padding: '0.75rem 1.75rem',
             borderRadius: '8px',
-            transition: 'background-color 0.2s',
           }}
         >
           Matchday & Attendance Details

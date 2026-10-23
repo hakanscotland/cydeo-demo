@@ -42,3 +42,125 @@ button {
   border: none;
   background: none;
 }
+
+/* ---- Motion system ---- */
+
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.38);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(21, 128, 61, 0);
+  }
+}
+
+@keyframes drift-glow {
+  0% {
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    transform: translate(-48%, -3%) scale(1.06);
+  }
+}
+
+@keyframes sheen-sweep {
+  from {
+    background-position: -120% 0;
+  }
+  to {
+    background-position: 220% 0;
+  }
+}
+
+@keyframes tick-pulse {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.035);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fade-slide-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+.pulse-pill {
+  animation: pulse-ring 2.4s ease-in-out infinite;
+}
+
+.cta-button {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -8px rgba(179, 143, 34, 0.55);
+}
+
+.standings-row-highlight {
+  background-size: 250% 100%;
+  animation: sheen-sweep 1.8s ease-out 0.4s 1;
+}
+
+.player-card-motion {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.player-card-motion:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 24px -12px rgba(15, 47, 36, 0.35);
+  border-color: var(--color-club-green);
+}
+
+.player-photo-motion {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.player-card-motion:hover .player-photo-motion {
+  transform: scale(1.06);
+}
+
+.result-row-motion {
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.result-row-motion:hover {
+  transform: translateX(2px);
+  border-color: var(--color-club-green);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  .cta-button:hover,
+  .player-card-motion:hover {
+    transform: none;
+  }
+
+  .player-card-motion:hover .player-photo-motion {
+    transform: none;
+  }
+}

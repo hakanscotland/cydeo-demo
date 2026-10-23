@@ -68,9 +68,13 @@ export default function MiniStandings({ standings }: MiniStandingsProps) {
                   key={row.id}
                   data-testid={isPintFc ? 'standings-row-pintfc' : undefined}
                   data-highlighted={isPintFc ? 'true' : undefined}
+                  className={isPintFc ? 'standings-row-highlight' : undefined}
                   style={{
                     borderBottom: '1px solid var(--color-border)',
                     backgroundColor: isPintFc ? 'rgba(27, 77, 62, 0.08)' : 'transparent',
+                    backgroundImage: isPintFc
+                      ? 'linear-gradient(100deg, transparent 20%, rgba(179,143,34,0.22) 36%, transparent 52%)'
+                      : undefined,
                     fontWeight: isPintFc ? 700 : 400,
                     color: isPintFc ? 'var(--color-club-green)' : 'var(--color-text-main)',
                   }}

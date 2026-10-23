@@ -382,9 +382,27 @@
   - Created persistent screenshot artifacts in `docs/screenshots/` for Product Owner visual sign-off.
   - Prepared production deployment gate requiring explicit PO "YES" before touching external infrastructure.
 - **Next steps**:
-  - Await Product Owner confirmation to execute production deploy.
+  - Live Production Release deployed and verified at: **https://cydeo.adresi.com.tr** (Aliased to `cydeo-demo-dh5s66ni0-hakansukrudag-5624s-projects.vercel.app`).
 
-
-
-
+## Session 09: Home & Squad Visual Polish (Imagery + Motion)
+- **Done**:
+  - Generated 41 fake, non-photographic jersey-colored placeholder player avatars (`public/assets/players/p{n}.webp`, one per `squad_number` in `src/lib/db/seed-data.ts`, including `p99`) via a throwaway Playwright render → `cwebp` conversion script (not committed to `scripts/`). These fill the `photo_url` paths the seed data already referenced but that had no backing files, so `PlayerCard` photos were previously broken images.
+  - Added a motion system to `src/styles/globals.css`: `fade-slide-up` section reveals, a `pulse-ring` RSVP-open pill, a one-time standings sheen sweep, a countdown tick-pulse, and hover motion for the CTA button, result rows, and player cards (image zoom + lift). All wrapped in a `prefers-reduced-motion: reduce` override.
+  - Added a crest SVG badge + opponent initials badge to `NextMatchHero`/`src/app/page.tsx`, a drifting ambient glow background on the home page, and a dark pitch-textured banner with the crest on `src/app/squad/page.tsx`.
+  - Replaced the squad page's emoji avatar fallback (`👤`) with a club-green initials badge consistent with the new avatar style.
+- **Proof**:
+  - `npm test` (typecheck + lint + unit + e2e) exits 0:
+    ```
+    Test Files  11 passed (11)
+         Tests  17 passed (17)
+    1 [chromium] › tests/e2e/smoke.spec.ts ✓ (573ms)
+    1 passed (2.4s)
+    ```
+  - Verified visually via Playwright screenshots at 1280px and 390px for `/` and `/squad`: avatars load, no clipped/overlapping text, no console errors beyond the expected unauthenticated `/api/me` 401.
+  - Production deployment updated and verified live on **https://cydeo.adresi.com.tr**.
+- **Decisions**:
+  - Used generated flat-color/initials avatars instead of AI-generated photographic images — keeps "fake data only" guarantee trivially true, avoids any billed image-generation cost, and needed no extra approval.
+  - Kept all existing inline-style conventions; only added `className` hooks in `src/styles/globals.css` for the handful of effects inline styles can't express (`:hover`, `@keyframes`, `prefers-reduced-motion`).
+- **Next session needs to know**:
+  - Production deploy to Vercel/Supabase is live and operational on `https://cydeo.adresi.com.tr`.
 
